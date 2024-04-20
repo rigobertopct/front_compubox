@@ -1981,7 +1981,7 @@ export default {
           etapa: this.etapa,
           idioma: this.idioma
         },
-        refetchQueries: [{ query: BUSCAR, variables: { name: this.name, idioma:this.idioma } }]
+        refetchQueries: [{ query: BUSCAR, variables: { name: this.name, idioma: this.idioma } }]
       }).then(response => {
         if (response.data.nuevaPrueba.success) {
           const Toast = Swal.mixin({
@@ -2052,7 +2052,7 @@ export default {
           id: this.id,
           etapa: this.etapa
         },
-        refetchQueries: [{ query: BUSCAR, variables: { name: this.name, idioma:this.idioma } }]
+        refetchQueries: [{ query: BUSCAR, variables: { name: this.name, idioma: this.idioma } }]
       }).then(response => {
         if (response.data.updatePrueba.success) {
           const Toast = Swal.mixin({
@@ -2578,6 +2578,7 @@ export default {
       this.lineaRecta = [];
       this.ecuacion_carslon = "";
       this.elementos_curva = [];
+      this.curva = false;
       this.id = 0;
       this.verIndicadores = false;
     }
