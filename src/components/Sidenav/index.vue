@@ -12,14 +12,14 @@
         class="top-0 p-3 cursor-pointer fas fa-times text-secondary opacity-5 position-absolute end-0 d-none d-xl-none"
         aria-hidden="true"
       ></i>
-      <router-link class="m-0 navbar-brand" to="/">
+      <router-link class="m-0 navbar-brand" to="/" style="display: flex; justify-content: start; align-items: center">
         <img
-          src="@/assets/img/logos/logo.png"
+          src="@/assets/img/logos/copa.svg"
           class="navbar-brand-img h-100"
           alt="main_logo"
         />
-        <span class="ms-1 font-weight-bold text-white"
-          >CompuboxCU</span
+        <span class="font-weight-bold text-white" style="white-space: pre-wrap;"
+        >{{encabezado}}</span
         >
       </router-link>
     </div>
@@ -32,19 +32,51 @@ import SidenavList from "./SidenavList.vue";
 import logo from "@/assets/img/logo-ct.png";
 import logoDark from "@/assets/img/logo-ct-dark.png";
 import { mapState } from "vuex";
+
 export default {
   name: "Index",
   components: {
-    SidenavList,
+    SidenavList
   },
   data() {
     return {
       logo,
       logoDark,
+      encabezado: "Suite de Inteligencia Deportiva"
     };
   },
-  computed: {
-    ...mapState(["isRTL", "sidebarType", "isDarkMode"]),
+  watch: {
+    idioma(value) {
+      if (value === "es") {
+        this.encabezado = "Suite de Inteligencia Deportiva";
+      }
+      if (value === "ru") {
+        this.encabezado = "Интеллектуальный люкс";
+      }
+      if (value === "in") {
+        this.encabezado = "Intelligence Suite";
+      }
+      if (value === "fr") {
+        this.encabezado = "Suite d'intelligence";
+      }
+    }
   },
+  created() {
+    if (this.idioma === "es") {
+      this.encabezado = "Suite de Inteligencia Deportiva";
+    }
+    if (this.idioma === "ru") {
+      this.encabezado = "Спортивная разведывательная сюита";
+    }
+    if (this.idioma === "in") {
+      this.encabezado = "Sports Intelligence Suite";
+    }
+    if (this.idioma === "fr") {
+      this.encabezado = "Suite d'intelligence sportive";
+    }
+  },
+  computed: {
+    ...mapState(["isRTL", "sidebarType", "isDarkMode", "idioma"])
+  }
 };
 </script>

@@ -1,52 +1,60 @@
 <template>
   <a
     :data-bs-toggle="collapse ? 'collapse' : ''"
-    :href="collapse ? `#${collapseRef}` : collapseRef"
     :aria-controls="collapseRef"
-    aria-expanded="false"
+    :aria-expanded="isExpanded"
     class="nav-link"
     v-bind="$attrs"
-    @click="isExpanded = !isExpanded"
+    @click="show()"
   >
     <div
-      class="text-center d-flex align-items-center justify-content-center"
-      :class="isRTL ? ' ms-2' : 'me-2'"
+      class="text-center d-flex align-items-center justify-content-center me-2"
     >
       <slot name="icon"></slot>
     </div>
-    <span class="nav-link-text" :class="isRTL ? ' me-1' : 'ms-1'">{{
-      navText
-    }}</span>
+    <span class="nav-link-text ms-1">{{ navText }}</span>
   </a>
-  <div :id="collapseRef" class="collapse">
-    <slot name="list"></slot>
-  </div>
+  <transition name="fade">
+    <div :ref="collapseRef" class="collapse">
+      <slot name="list"></slot>
+    </div>
+  </transition>
 </template>
 <script>
-import { mapState } from "vuex";
+import collapse from "bootstrap/js/src/collapse";
+
 export default {
   name: "SidenavCollapse",
   props: {
     collapseRef: {
       type: String,
-      required: true,
+      required: true
     },
     navText: {
       type: String,
-      required: true,
+      required: true
     },
     collapse: {
       type: Boolean,
-      default: true,
-    },
+      default: true
+    }
   },
   data() {
     return {
-      isExpanded: false,
+      isExpanded: false
     };
   },
-  computed: {
-    ...mapState(["isRTL"]),
-  },
+  methods: {
+    show() {
+      this.isExpanded = !this.isExpanded;
+      const menu = this.$refs[this.collapseRef];
+      if (this.isExpanded) {
+        menu.classList.add("show");
+      } else {
+        menu.classList.remove("show");
+      }
+    }
+  }
 };
 </script>
+

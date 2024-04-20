@@ -1,7 +1,9 @@
-import { createStore } from "vuex";
-import bootstrap from "bootstrap/dist/js/bootstrap.min.js";
+import Vue from "vue";
+import Vuex from "vuex";
+// plugin a agregar
+import createPersistedState from "vuex-persistedstate";
 
-export default createStore({
+const store = new Vuex.Store({
   state: {
     hideConfigButton: false,
     isPinned: true,
@@ -22,20 +24,30 @@ export default createStore({
     navbarFixed:
       "position-sticky blur shadow-blur left-auto top-1 z-index-sticky px-0 mx-4",
     absolute: "position-absolute px-4 mx-0 w-100 z-index-2",
-    bootstrap,
     userid: null,
     username: null,
     isAuth: false,
     jwt: "",
     isAdmin: false,
     combate: null,
-    url: "http://localhost:3000"
-    // url:"https://compubox.xutil.cu/api/",
+    group: null,
+    provincia: null,
+    origen_login: "boxeo",
+    idioma: "es",
+    // url: "http://localhost:3000"
+    // url: "https://compubox.xutil.net/api/"
+    url: "https://compubox.xutil.cu/api/"
 
   },
   mutations: {
+    storeGroup(state, group) {
+      state.group = group;
+    },
     storeId(state, id) {
       state.userid = id;
+    },
+    provinciaId(state, id) {
+      state.provincia = id;
     },
     doLogin(state, username) {
       state.isAuth = true;
@@ -70,6 +82,9 @@ export default createStore({
     color(state, payload) {
       state.color = payload;
     },
+    SetIdioma(state, payload) {
+      state.idioma = payload;
+    },
     navbarMinimize(state) {
       const sidenavShow = document.getElementsByClassName("g-sidenav-show")[0];
 
@@ -92,14 +107,23 @@ export default createStore({
     }
   },
   actions: {
+    setIdioma({ commit }, payload) {
+      commit("SetIdioma", payload);
+    },
     setColor({ commit }, payload) {
       commit("color", payload);
     },
     storeId({ commit }, id) {
       commit("storeId", id);
     },
+    provinciaId({ commit }, id) {
+      commit("provinciaId", id);
+    },
     doLogin({ commit }, username) {
       commit("doLogin", username);
+    },
+    storeGroup({ commit }, grupo) {
+      commit("storeGroup", grupo);
     },
     doLogout({ commit }) {
       commit("doLogout");
@@ -111,5 +135,7 @@ export default createStore({
       commit("isAdmin");
     }
   },
-  getters: {}
+  getters: {},
+  plugins: [createPersistedState()]
 });
+export default store;

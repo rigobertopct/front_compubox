@@ -75,7 +75,7 @@
       <div v-if="showModal" :class="['modal', { 'show': showModal }]" @transitionend="onTransitionEnd">
         <div class="modal-content">
           <div class="row mb-3 border-bottom border-dark">
-            <h4 class="text-start"><i class="fa fa-plus-square me-2"></i>Nuevo resultado<i @click="closeModal"
+            <h4 class="text-start"><i class="fa fa-plus-square me-2"></i>Nuevo reglamento<i @click="closeModal"
                                                                                            class="material-icons-round opacity-10 modal-icon">close</i>
             </h4>
           </div>
@@ -112,7 +112,7 @@
       <div v-if="showUpdate" :class="['modal', { 'show': showUpdate }]" @transitionend="onTransitionEnd">
         <div class="modal-content">
           <div class="row mb-3 border-bottom border-dark">
-            <h4 class="text-start"><i class="fa fa-plus-square me-2"></i>Actualizar resultado<i @click="closeUpdate"
+            <h4 class="text-start"><i class="fa fa-plus-square me-2"></i>Actualizar reglamento<i @click="closeUpdate"
                                                                                                 class="material-icons-round opacity-10 modal-icon">close</i>
             </h4>
           </div>

@@ -59,6 +59,16 @@
         </ul>
       </div>
     </div>
+    <div class="container-login">
+      <div class="idioma">
+        <select v-model="set_idioma" class="form-control">
+          <option value="es">🇪🇸 Español</option>
+          <option value="ru">🇷🇺 Русский</option>
+          <option value="in">🇬🇧 English</option>
+          <option value="fr">🇫🇷 Français</option>
+        </select>
+      </div>
+    </div>
   </nav>
 </template>
 <script>
@@ -70,39 +80,57 @@ export default {
   name: "Navbar",
   components: {
     Breadcrumbs,
-    MaterialInput,
+    MaterialInput
   },
   props: {
     minNav: {
       type: Function,
-      default: () => {},
+      default: () => {
+      }
     },
     color: {
       type: String,
-      default: "text-body",
-    },
+      default: "text-body"
+    }
   },
   data() {
     return {
       showMenu: false,
+      set_idioma: ""
     };
   },
   computed: {
-    ...mapState(["isRTL", "isAbsolute"]),
+    ...mapState(["isRTL", "isAbsolute", "idioma"]),
     currentRouteName() {
       return this.$route.name;
-    },
+    }
+  },
+  watch: {
+    set_idioma(value) {
+      this.$store.dispatch("setIdioma", value);;
+    }
   },
   created() {
     this.minNav;
+    this.set_idioma = this.$store.state.idioma;
   },
-
   methods: {
     ...mapMutations(["navbarMinimize", "toggleConfigurator"]),
 
     toggleSidebar() {
       this.navbarMinimize();
-    },
-  },
+    }
+  }
 };
 </script>
+<style scoped>
+.container-login {
+  z-index: 99;
+}
+
+.idioma {
+  position: absolute;
+  top: 0px;
+  right: 20px;
+}
+</style>

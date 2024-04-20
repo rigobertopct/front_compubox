@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from "vue-router";
+import { createRouter, createWebHashHistory, createWebHistory } from "vue-router";
 import Default from "../views/dashboards/Default.vue";
 import Sales from "../views/dashboards/Sales.vue";
 import Overview from "../views/pages/profile/Overview.vue";
@@ -18,7 +18,7 @@ import ProductPage from "../views/ecommerce/products/ProductPage.vue";
 import OrderDetails from "../views/ecommerce/orders/OrderDetails";
 import OrderList from "../views/ecommerce/orders/OrderList";
 import NewUser from "../views/pages/users/NewUser.vue";
-import Settings from "../views/pages/account/Settings.vue";
+import Settings from "../views/Seguridad/Settings.vue";
 import Billing from "../views/pages/account/Billing.vue";
 import Invoice from "../views/pages/account/Invoice.vue";
 import Widgets from "../views/pages/Widgets.vue";
@@ -39,17 +39,48 @@ import TipoEvento from "@/views/Configuracion/TipoEvento.vue";
 import Reglamentos from "@/views/Nomencladores/Reglamentos.vue";
 import Combate from "@/views/Combate.vue";
 import Informes from "@/views/Informes.vue";
+import store from "@/store";
+import Atletas from "@/views/pruebas/Atletas.vue";
+import Deportes from "@/views/Nomencladores/Deportes.vue";
+import Disciplina from "@/views/Nomencladores/Disciplina.vue";
+import Lugares from "@/views/Nomencladores/Lugares.vue";
+import Pruebas from "@/views/pruebas/Pruebas.vue";
+import Combates_listado from "@/views/Combates_listado.vue";
 
 const routes = [
   {
     path: "/",
-    name: "/",
-    redirect: "/dashboards/dashboard-default"
+    redirect: "/login"
   },
   {
     path: "/nomencladores/pugiles",
     name: "Púgiles",
     component: Pugiles
+  },
+  {
+    path: "/pruebas/deportistas",
+    name: "Deportistas",
+    component: Atletas
+  },
+  {
+    path: "/pruebas",
+    name: "Pruebas",
+    component: Pruebas
+  },
+  {
+    path: "/deportes",
+    name: "Deportes",
+    component: Deportes
+  },
+  {
+    path: "/deportes/disciplinas",
+    name: "Disciplinas",
+    component: Disciplina
+  },
+  {
+    path: "/nomencladores/lugares",
+    name: "Lugares",
+    component: Lugares
   },
   {
     path: "/nomencladores/categorias",
@@ -84,6 +115,11 @@ const routes = [
   {
     path: "/combate",
     name: "Combate",
+    component: Combates_listado
+  },
+  {
+    path: "/combate/captura",
+    name: "Captura del combate",
     component: Combate
   },
   {
@@ -93,7 +129,7 @@ const routes = [
   },
   {
     path: "/configuracion/tipoevento",
-    name:"Tipo de evento",
+    name: "Tipo de evento",
     component: TipoEvento
   },
   {
@@ -102,13 +138,18 @@ const routes = [
     component: Usuarios
   },
   {
+    path: "/perfil",
+    name: "Perfil de usuario",
+    component: Settings
+  },
+  {
     path: "/informes",
     name: "Informes",
     component: Informes
   },
   //....................
   {
-    path: "/dashboards/dashboard-default",
+    path: "/inicio",
     name: "Estadísticas",
     component: Default
   },
@@ -223,8 +264,8 @@ const routes = [
     component: Invoice
   },
   {
-    path: "/authentication/signin/basic",
-    name: "Signin Basic",
+    path: "/",
+    name: "Login",
     component: Basic
   },
   {
@@ -250,9 +291,14 @@ const routes = [
 ];
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  history: createWebHashHistory(),
   routes,
   linkActiveClass: "active"
 });
-
+router.beforeEach((to, from, next) => {
+  if (to.path === "/login") {
+    store.commit("doLogout");
+  }
+  next();
+});
 export default router;

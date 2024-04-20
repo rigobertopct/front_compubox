@@ -13,9 +13,8 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 -->
 <template>
-  <div v-if="$store.state.isAuth">
+  <div v-if="isAutenticated">
     <sidenav
-      v-if="showSidenav"
       :custom_class="color"
       :class="[isRTL ? 'fixed-end' : 'fixed-start']"
     />
@@ -24,7 +23,6 @@ Coded by www.creative-tim.com
     >
       <!-- nav -->
       <navbar
-        v-if="showNavbar"
         :class="[isNavFixed ? navbarFixed : '', isAbsolute ? absolute : '']"
         :color="isAbsolute ? 'text-white opacity-8' : ''"
         :min-nav="navbarMinimize"
@@ -41,7 +39,7 @@ Coded by www.creative-tim.com
 import Sidenav from "./components/Sidenav";
 import Configurator from "@/examples/Configurator.vue";
 import Navbar from "@/components/Navbar.vue";
-import AppFooter from "@/examples/Footer.vue";
+import AppFooter from "@/components/Footer.vue";
 import { mapMutations, mapState } from "vuex";
 import SigninBasic from "@/views/Seguridad/Login.vue";
 
@@ -67,15 +65,20 @@ export default {
       "showFooter",
       "showConfig",
       "hideConfigButton",
-      "autorizado"
-    ])
+      "isAuth"
+    ]),
+    isAutenticated() {
+      return this.isAuth && this.$route.name !== "Login";
+    }
   },
   beforeMount() {
     const sidenav = document.getElementsByClassName("g-sidenav-show")[0];
-
     if (window.innerWidth > 1200) {
       sidenav.classList.add("g-sidenav-pinned");
     }
+  },
+  created() {
+
   },
   methods: {
     ...mapMutations(["toggleConfigurator", "navbarMinimize"])

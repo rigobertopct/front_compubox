@@ -58,13 +58,13 @@
               <td class="text-sm font-weight-normal ps-4">{{ item.username }}</td>
               <td class="text-sm font-weight-normal ps-4">{{ item.email }}</td>
               <td class="text-sm font-weight-normal ps-4">
-                <div class="btn-group" role="group" v-if="item.username!=='admin'">
-                  <button @click="openUpdate(item.id, item.firstName, item.lastName, item.username, item.email)"
-                          data-bs-toggle="tooltip"
-                          data-bs-placement="top"
-                          title="Editar Marca" data-container="body" data-animation="true"
-                          class="btn btn-info p-1 ms-1">
-                    <i class="material-icons opacity-10">edit</i></button>
+                <div class="btn-group" role="group">
+                  <!--                  <button @click="openUpdate(item.id, item.firstName, item.lastName, item.username, item.email)"-->
+                  <!--                          data-bs-toggle="tooltip"-->
+                  <!--                          data-bs-placement="top"-->
+                  <!--                          title="Editar Marca" data-container="body" data-animation="true"-->
+                  <!--                          class="btn btn-info p-1 ms-1">-->
+                  <!--                    <i class="material-icons opacity-10">edit</i></button>-->
                   <button data-bs-toggle="tooltip" data-bs-placement="top"
                           title="Eliminar Marca" data-container="body" data-animation="true"
                           class="btn btn-danger p-1 ms-1">
@@ -86,33 +86,54 @@
             </h4>
           </div>
           <div class="row mb-3">
-            <div class="col-12">
+            <div class="col-lg-6 col-md-6 col-sm-12">
               <label class="form-label">Nombre</label>
               <input v-model="nombre" class="form-control border-bottom border-dark p-2 mb-3"
                      type="text">
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12">
               <label class="form-label">Apellidos</label>
               <input v-model="apellidos" class="form-control border-bottom border-dark p-2 mb-3"
                      type="text">
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12">
               <label class="form-label">Usuario</label>
               <input v-model="usuario" class="form-control border-bottom border-dark p-2 mb-3"
                      type="text">
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12">
+              <label class="form-label">Rol</label>
+              <select class="form-select" v-model="grupo">
+                <option value="0" disabled>Seleccione un rol</option>
+                <option v-for="item in grupos" :key="item.id" :value="item.id">{{ item.name }}</option>
+              </select>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12">
               <label class="form-label">Correo</label>
               <input v-model="email" class="form-control border-bottom border-dark p-2"
                      type="text">
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12">
               <label class="form-label">Contraseña</label>
               <input v-model="password" class="form-control border-bottom border-dark p-2"
                      type="password">
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12">
               <label class="form-label">Repita la contraseña</label>
               <input v-model="password1" class="form-control border-bottom border-dark p-2"
                      type="password">
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12">
               <div v-show="error" class="text-danger mt-3 text-center p-2"
                    style="background-color: rgba(255,19,28,0.08)">
-                <div class="d-flex align-center justify-content-center"><i class="material-icons-round opacity-10 me-2">error</i>
+                <div class="d-flex align-center justify-content-center"><i
+                  class="material-icons-round opacity-10 me-2">error</i>
                   <p class="text-dark">No pueden haber campos vacíos</p></div>
               </div>
               <div v-show="errorpassword" class="text-danger mt-3 text-center p-2"
                    style="background-color: rgba(255,19,28,0.08)">
-                <div class="d-flex align-center justify-content-center"><i class="material-icons-round opacity-10 me-2">error</i>
+                <div class="d-flex align-center justify-content-center"><i
+                  class="material-icons-round opacity-10 me-2">error</i>
                   <p class="text-dark">Las contraseñas no coinciden</p></div>
               </div>
             </div>
@@ -152,7 +173,8 @@
                      placeholder="Escriba el nombre de una Aseguradora" type="text">
               <div v-show="error" class="text-danger mt-3 text-center p-2"
                    style="background-color: rgba(255,19,28,0.08)">
-                <div class="d-flex align-center justify-content-center"><i class="material-icons-round opacity-10 me-2">error</i>
+                <div class="d-flex align-center justify-content-center"><i
+                  class="material-icons-round opacity-10 me-2">error</i>
                   <p class="text-dark">No pueden haber campos vacíos</p></div>
               </div>
             </div>
@@ -176,7 +198,8 @@
 import gql from "graphql-tag";
 import Swal from "sweetalert2";
 
-const BUSCAR = gql`query Usuarios($name:String!) {
+const BUSCAR = gql`
+query Usuarios($name:String!) {
     usuarios(name: $name) {
         id
         lastLogin
@@ -191,24 +214,34 @@ const BUSCAR = gql`query Usuarios($name:String!) {
         isSuperuser
     }
 }`;
-const NUEVO = gql`mutation CrearUsuario($nombre:String!, $apellidos:String!, $email:String!, $password:String!, $usuario:String!) {
+const NUEVO = gql`
+mutation CrearUsuario($nombre:String!, $apellidos:String!, $grupo:Int!, $email:String!, $password:String!, $usuario:String!) {
     crearUsuario(
         apellidos: $apellidos
         email: $email
         nombre: $nombre
         password: $password
         usuario: $usuario
+        grupo:$grupo
     ) {
         error
         success
     }
 }
 `;
+const GRUPOS = gql`
+query Grupos {
+    grupos {
+        id
+        name
+    }
+}`;
 export default {
-  name: "Disciplina",
+  name: "Usuarios",
   data() {
     return {
       usuarios: [],
+      grupos: [],
       name: "",
       showModal: false,
       error: false,
@@ -220,7 +253,8 @@ export default {
       password: "",
       password1: "",
       id: 0,
-      showUpdate: false
+      showUpdate: false,
+      grupo: 0
     };
   },
   apollo: {
@@ -232,11 +266,16 @@ export default {
         };
       },
       fetchPolicy: "cache-and-network"
+    },
+    grupos: {
+      query: GRUPOS,
+      fetchPolicy: "cache-and-network"
     }
   },
   methods: {
     async Guardar() {
-      if (this.nombre === "" || this.apellidos === "" || this.usuario === "" || this.email === "" || this.password === "" || this.password1 === "") {
+      if (this.nombre === "" || this.apellidos === "" || this.usuario === "" || this.email === "" || this.password === "" || this.password1 === ""
+        || this.grupo === 0) {
         this.error = true;
         return false;
       }
@@ -251,7 +290,8 @@ export default {
           nombre: this.nombre,
           usuario: this.usuario,
           email: this.email,
-          password: this.password
+          password: this.password,
+          grupo: this.grupo
         },
         refetchQueries: [{ query: BUSCAR, variables: { name: this.name } }]
       }).then(response => {

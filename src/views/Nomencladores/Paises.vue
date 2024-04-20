@@ -379,14 +379,14 @@ export default {
       document.body.classList.add("modal-open");
     },
     closeModal() {
-      this.nombre = "";
+      this.pais = "";
       this.siglas = "";
       this.showModal = false;
       this.error = false;
       document.body.classList.remove("modal-open");
     },
     closeUpdate() {
-      this.nombre = "";
+      this.pais = "";
       this.siglas = "";
       this.id = 0;
       this.showUpdate = false;

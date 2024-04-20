@@ -5,8 +5,9 @@ const cache = new InMemoryCache();
 const token = localStorage.getItem("token");
 const apolloClient = new ApolloClient({
   cache,
-  uri: "http://127.0.0.1:84/",
-  // uri: "http://10.34.50.28:8000/",
+  uri: "http://127.0.0.1:8000/",
+  // uri: "https://compubox.xutil.net/graphql/",
+  // uri: "https://compubox.xutil.cu/graphql/",
   headers: {
     Authorization: "JWT " + token
   }

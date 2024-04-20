@@ -15,6 +15,10 @@ export default {
       type: String,
       default: "300",
     },
+    title: {
+      type: String,
+      default: "",
+    },
     chart: {
       type: Object,
       required: true,

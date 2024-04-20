@@ -4,18 +4,18 @@
       <div class="card shadow-lg">
         <!-- Card header -->
         <div class="card-header">
-          <h5 class="mb-0">Categorías</h5>
+          <h5 class="mb-0">{{ categorias_text }}</h5>
         </div>
         <div class="d-flex justify-content-between m-3">
           <div class="col-3">
             <div class="input-group">
               <input v-model="name" type="text" class="form-control border-bottom border-dark input-icon"
-                     placeholder="Buscar" aria-label="Recipient's username" aria-describedby="button-addon2">
+                     :placeholder="buscar_text" aria-label="Recipient's username" aria-describedby="button-addon2">
             </div>
           </div>
           <div class="col-8 text-end">
             <button @click="openModal" class="btn btn-dark align-content-end">
-              <i class="fa fa-plus-square me-2"></i> Nuevo
+              <i class="fa fa-plus-square me-2"></i> {{ nuevo_text }}
             </button>
           </div>
           <div class="col-1"></div>
@@ -42,7 +42,7 @@
               <th
                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
               >
-                Acciones
+                {{ acciones_text }}
               </th>
             </tr>
             </thead>
@@ -56,7 +56,7 @@
                   <button @click="openUpdate(item.id, item.categoria, item.pesoMin, item.pesoMax)"
                           data-bs-toggle="tooltip"
                           data-bs-placement="top"
-                          title="Editar" data-container="body" data-animation="true"
+                          :title="editar_text" data-container="body" data-animation="true"
                           class="btn btn-info p-1 ms-1">
                     <i class="material-icons opacity-10">edit</i></button>
                   <button data-bs-toggle="tooltip" data-bs-placement="top"
@@ -75,19 +75,20 @@
       <div v-if="showModal" :class="['modal', { 'show': showModal }]" @transitionend="onTransitionEnd">
         <div class="modal-content">
           <div class="row mb-3 border-bottom border-dark">
-            <h4 class="text-start"><i class="fa fa-plus-square me-2"></i>Nueva categoría<i @click="closeModal"
-                                                                                           class="material-icons-round opacity-10 modal-icon">close</i>
+            <h4 class="text-start"><i class="fa fa-plus-square me-2"></i>{{ nueva_categoria_text }}<i
+              @click="closeModal"
+              class="material-icons-round opacity-10 modal-icon">close</i>
             </h4>
           </div>
           <div class="row mb-3">
             <div class="col-12">
-              <label class="form-label">Nombre</label>
+              <label class="form-label">{{ nombre_text }}</label>
               <input v-model="categoria" class="form-control border-bottom border-dark p-2"
                      type="text">
-              <label class="form-label">Peso máximo)</label>
+              <label class="form-label">{{ peso_max_text }}</label>
               <input v-model="peso_max" class="form-control border-bottom border-dark p-2"
                      type="number" min="0">
-              <label class="form-label">Peso mínimo</label>
+              <label class="form-label">{{ peso_min_text }}</label>
               <input v-model="peso_min" class="form-control border-bottom border-dark p-2"
                      type="number" min="0">
               <div v-show="error" class="text-danger mt-3 text-center p-2"
@@ -99,10 +100,10 @@
           </div>
           <div class="row">
             <div class="col-6 d-flex justify-content-start">
-              <button @click="closeModal" class="btn btn-secondary" type="button">Cancelar</button>
+              <button @click="closeModal" class="btn btn-secondary" type="button">{{ cancelar_text }}</button>
             </div>
             <div class="col-6 d-flex justify-content-end">
-              <button @click="Guardar" class="btn btn-dark" type="button">Guardar</button>
+              <button @click="Guardar" class="btn btn-dark" type="button">{{ guardar_text }}</button>
             </div>
           </div>
         </div>
@@ -112,19 +113,19 @@
       <div v-if="showUpdate" :class="['modal', { 'show': showUpdate }]" @transitionend="onTransitionEnd">
         <div class="modal-content">
           <div class="row mb-3 border-bottom border-dark">
-            <h4 class="text-start"><i class="fa fa-pencil-square me-2"></i>Actualizar resultado<i @click="closeUpdate"
-                                                                                                class="material-icons-round opacity-10 modal-icon">close</i>
+            <h4 class="text-start"><i class="fa fa-pencil-square me-2"></i>{{actualizar_categoria_text}}<i @click="closeUpdate"
+                                                                                                  class="material-icons-round opacity-10 modal-icon">close</i>
             </h4>
           </div>
           <div class="row mb-3">
             <div class="col-12">
-              <label class="form-label">Nombre</label>
+              <label class="form-label">{{nombre_text}}</label>
               <input v-model="categoria" class="form-control border-bottom border-dark p-2"
                      type="text">
-              <label class="form-label">Peso máximo)</label>
+              <label class="form-label">{{peso_max_text}}</label>
               <input v-model="peso_max" class="form-control border-bottom border-dark p-2"
                      type="number" min="0">
-              <label class="form-label">Peso mínimo</label>
+              <label class="form-label">{{peso_min_text}}</label>
               <input v-model="peso_min" class="form-control border-bottom border-dark p-2"
                      type="number" min="0">
               <div v-show="error" class="text-danger mt-3 text-center p-2"
@@ -136,10 +137,10 @@
           </div>
           <div class="row">
             <div class="col-6 d-flex justify-content-start">
-              <button @click="closeUpdate" class="btn btn-secondary" type="button">Cancelar</button>
+              <button @click="closeUpdate" class="btn btn-secondary" type="button">{{ cancelar_text }}</button>
             </div>
             <div class="col-6 d-flex justify-content-end">
-              <button @click="Actualizar" class="btn btn-dark" type="button">Guardar</button>
+              <button @click="Actualizar" class="btn btn-dark" type="button">{{ guardar_text }}</button>
             </div>
           </div>
         </div>
@@ -151,9 +152,10 @@
 <script>
 import gql from "graphql-tag";
 import Swal from "sweetalert2";
+import { mapState } from "vuex";
 
-const BUSCAR = gql`query Categorias($name:String!) {
-    categorias(name: $name) {
+const BUSCAR = gql`query Categorias($name:String!, $idioma:String!) {
+    categorias(name: $name, idioma:$idioma) {
         id
         categoria
         pesoMin
@@ -191,15 +193,166 @@ export default {
       peso_max: 0,
       peso_min: 0,
       id: 0,
-      showUpdate: false
+      showUpdate: false,
+
+      categorias_text: "Categorías",
+      nueva_categoria_text: "Nueva categoría",
+      nombre_text: "Nombre",
+      peso_max_text: "Peso máximo",
+      peso_min_text: "Peso mínimo",
+      actualizar_categoria_text: "Actualizar categoría",
+
+      acciones_text: "Acciones",
+      buscar_text: "Buscar",
+      nuevo_text: "Nuevo",
+      editar_text: "Editar",
+      eliminar_text: "Eliminar",
+      cancelar_text: "Cancelar",
+      guardar_text: "Guardar"
     };
+  },
+  created() {
+    if (this.idioma === "es") {
+      this.categorias_text = "Categorías";
+      this.nueva_categoria_text = "Nueva categoría";
+      this.nombre_text = "Nombre";
+      this.peso_max_text = "Peso máximo";
+      this.peso_min_text = "Peso mínimo";
+      this.actualizar_categoria_text = "Actualizar categoría";
+
+      this.acciones_text = "Acciones";
+      this.buscar_text = "Buscar";
+      this.nuevo_text = "Nuevo";
+      this.editar_text = "Editar";
+      this.cancelar_text = "Cancelar";
+      this.guardar_text = "Guardar";
+    }
+    if (this.idioma === "ru") {
+      this.categorias_text = "Категории";
+      this.nueva_categoria_text = "Новая категория";
+      this.nombre_text = "Имя";
+      this.peso_max_text = "Максимальный вес";
+      this.peso_min_text = "Минимальный вес";
+      this.actualizar_categoria_text="Обновить категорию"
+
+      this.acciones_text = "Действия";
+      this.buscar_text = "Искать";
+      this.nuevo_text = "Новый";
+      this.editar_text = "Редактировать";
+      this.cancelar_text = "Отмена";
+      this.guardar_text = "Держать";
+      this.eliminar_text = "Устранять";
+    }
+    if (this.idioma === "in") {
+      this.categorias_text = "Categories";
+      this.nueva_categoria_text = "New category";
+      this.nombre_text = "Name";
+      this.peso_max_text = "Maximum weight";
+      this.peso_min_text = "Minimum weight";
+      this.actualizar_categoria_text = "Update Category";
+
+      this.acciones_text = "Actions";
+      this.buscar_text = "Search";
+      this.nuevo_text = "New";
+      this.editar_text = "Edit";
+      this.cancelar_text = "Cancel";
+      this.guardar_text = "Save";
+      this.eliminar_text = "Delete";
+    }
+    if (this.idioma === "fr") {
+      this.categorias_text = "Catégories";
+      this.nueva_categoria_text = "Nouvelle catégorie";
+      this.nombre_text = "Nom";
+      this.peso_max_text = "Poids maximum";
+      this.peso_min_text = "Poids minimum";
+      this.actualizar_categoria_text = "Catégorie de mise à jour";
+
+      this.acciones_text = "Actions";
+      this.buscar_text = "Chercher";
+      this.nuevo_text = "Nouveau";
+      this.editar_text = "Modifier";
+      this.cancelar_text = "Annuler";
+      this.guardar_text = "Accepter";
+      this.eliminar_text = "Éliminer";
+    }
+  },
+  watch: {
+    idioma() {
+      if (this.idioma === "es") {
+        this.categorias_text = "Categorías";
+        this.nueva_categoria_text = "Nueva categoría";
+        this.nombre_text = "Nombre";
+        this.peso_max_text = "Peso máximo";
+        this.peso_min_text = "Peso mínimo";
+        this.actualizar_categoria_text = "Actualizar categoría";
+
+        this.acciones_text = "Acciones";
+        this.buscar_text = "Buscar";
+        this.nuevo_text = "Nuevo";
+        this.editar_text = "Editar";
+        this.cancelar_text = "Cancelar";
+        this.guardar_text = "Guardar";
+      }
+      if (this.idioma === "ru") {
+        this.categorias_text = "Категории";
+        this.nueva_categoria_text = "Новая категория";
+        this.nombre_text = "Имя";
+        this.peso_max_text = "Максимальный вес";
+        this.peso_min_text = "Минимальный вес";
+        this.actualizar_categoria_text="Обновить категорию"
+
+        this.acciones_text = "Действия";
+        this.buscar_text = "Искать";
+        this.nuevo_text = "Новый";
+        this.editar_text = "Редактировать";
+        this.cancelar_text = "Отменить";
+        this.guardar_text = "Принять";
+        this.eliminar_text = "Удалить";
+      }
+      if (this.idioma === "in") {
+        this.categorias_text = "Categories";
+        this.nueva_categoria_text = "New category";
+        this.nombre_text = "Name";
+        this.peso_max_text = "Maximum weight";
+        this.peso_min_text = "Minimum weight";
+        this.actualizar_categoria_text = "Update Category";
+
+        this.acciones_text = "Actions";
+        this.buscar_text = "Search";
+        this.nuevo_text = "New";
+        this.editar_text = "Edit";
+        this.cancelar_text = "Cancel";
+        this.guardar_text = "Save";
+        this.eliminar_text = "Delete";
+      }
+      if (this.idioma === "fr") {
+        this.categorias_text = "Catégories";
+        this.nueva_categoria_text = "Nouvelle catégorie";
+        this.nombre_text = "Nom";
+        this.peso_max_text = "Poids maximum";
+        this.peso_min_text = "Poids minimum";
+        this.actualizar_categoria_text = "Catégorie de mise à jour";
+
+        this.acciones_text = "Actions";
+        this.buscar_text = "Chercher";
+        this.nuevo_text = "Nouveau";
+        this.editar_text = "Modifier";
+        this.cancelar_text = "Annuler";
+        this.guardar_text = "Accepter";
+        this.eliminar_text = "Éliminer";
+      }
+    }
+  },
+  computed: {
+    ...mapState(["idioma"])
   },
   apollo: {
     categorias: {
       query: BUSCAR,
       variables() {
         return {
-          name: this.name
+          name: this.name,
+          idioma: this.idioma
         };
       },
       fetchPolicy: "cache-and-network"
