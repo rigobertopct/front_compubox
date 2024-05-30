@@ -234,7 +234,6 @@ export default {
       this.peso_max_text = "Максимальный вес";
       this.peso_min_text = "Минимальный вес";
       this.actualizar_categoria_text="Обновить категорию"
-
       this.acciones_text = "Действия";
       this.buscar_text = "Искать";
       this.nuevo_text = "Новый";
@@ -295,7 +294,7 @@ export default {
       }
       if (this.idioma === "ru") {
         this.categorias_text = "Категории";
-        this.nueva_categoria_text = "Новая категория";
+        this.nueva_categoria_text = "Новая kатегория";
         this.nombre_text = "Имя";
         this.peso_max_text = "Максимальный вес";
         this.peso_min_text = "Минимальный вес";

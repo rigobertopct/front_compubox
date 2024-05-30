@@ -274,7 +274,7 @@ export default {
         this.cerrar_sesion = "выйти";
         this.cerrar_sesion_iniciales = "вы";
         this.boxeo_text = "Бokc";
-        this.combate_text = "Бой";
+        this.combate_text = "Поединки";
         this.combate_iniciales = "Бо";
         this.informes_text = "Отчеты";
         this.informes_iniciales = "От";
@@ -293,7 +293,7 @@ export default {
         this.disciplina_text = "Дисциплины";
         this.disciplinas_iniciales = "Ди";
         this.deposrtista_text = "Спортсмены";
-        this.eventos_text = "События";
+        this.eventos_text = "Mероприятия";
         this.eventos_iniciales = "Со";
         this.nomencladores_text = "Номенклаторы";
         this.configuraciones_text = "Настройки";
@@ -397,7 +397,7 @@ export default {
       this.cerrar_sesion = "выйти";
       this.cerrar_sesion_iniciales = "вы";
       this.boxeo_text = "Бokc";
-      this.combate_text = "Бой";
+      this.combate_text = "Поединки";
       this.combate_iniciales = "Бо";
       this.informes_text = "Отчеты";
       this.informes_iniciales = "От";
@@ -405,7 +405,7 @@ export default {
       this.categorias_iniciales = "Ка";
       this.pugiles_text = "Боксеры";
       this.pugiles_iniciales = "Бо";
-      this.teclas_text = "Ключи";
+      this.teclas_text = "Клавиши";
       this.teclas_iniciales = "Кл";
       this.pruebas_text = "Tести";
       this.pruebas_iniciales = "До";
@@ -416,7 +416,7 @@ export default {
       this.disciplina_text = "Дисциплины";
       this.disciplinas_iniciales = "Ди";
       this.deposrtista_text = "Спортсмены";
-      this.eventos_text = "События";
+      this.eventos_text = "Mероприятия";
       this.eventos_iniciales = "Со";
       this.nomencladores_text = "Номенклаторы";
       this.configuraciones_text = "Настройки";

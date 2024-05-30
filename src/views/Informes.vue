@@ -538,7 +538,7 @@ export default {
 
         this.detalles_text = "Подробности боксерского поединка";
         this.seleccione_anno_text = "Год";
-        this.reglamento_text = "Регулирование";
+        this.reglamento_text = "Pегламент";
         this.round_text = "Количество раундов";
         this.tiempo_text = "Время каждого раунда";
         this.golpes_round_text = "GУдаров за раунд";
@@ -641,7 +641,7 @@ export default {
 
       this.detalles_text = "Подробности боксерского поединка";
       this.seleccione_anno_text = "Выберите год";
-      this.reglamento_text = "Регулирование";
+      this.reglamento_text = "Pегламент";
       this.round_text = "Количество раундов";
       this.tiempo_text = "Время каждого раунда";
       this.golpes_round_text = "GУдаров за раунд";

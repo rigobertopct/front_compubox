@@ -423,14 +423,14 @@ export default {
       this.combates_text = "Поединки";
       this.pugiles_text = "Боксеры";
       this.evento_text = "Mероприятие";
-      this.comenzar_combate_text = "Начать бой";
-      this.nuevo_combate_text = "Новый бой";
+      this.comenzar_combate_text = "Начать поединок";
+      this.nuevo_combate_text = "Новый поединок";
       this.nombre_combate_text = "Имя";
       this.fecha_text = "Дата";
       this.categorias_text = "Категории";
-      this.esquina_roja_text = "Kрасный угол";
-      this.esquina_azul_text = "Cиний угол";
-      this.actualizar_combate_text = "Обновление боя";
+      this.esquina_roja_text = "Kрасный уголok";
+      this.esquina_azul_text = "Cиний уголok";
+      this.actualizar_combate_text = "Редактировать поединок";
 
       this.acciones_text = "Действия";
       this.buscar_text = "Искать";
@@ -563,13 +563,13 @@ export default {
         this.combates_text = "Боевые действия";
         this.pugiles_text = "Боксеры";
         this.evento_text = "Событие";
-        this.comenzar_combate_text = "Начать бой";
-        this.nuevo_combate_text = "Новый бой";
+        this.comenzar_combate_text = "Начать поединок";
+        this.nuevo_combate_text = "Новый поединок";
         this.nombre_combate_text = "Боевое имя";
         this.fecha_text = "Дата";
         this.categorias_text = "Категории";
-        this.esquina_roja_text = "красный угол";
-        this.esquina_azul_text = "синий угол";
+        this.esquina_roja_text = "Красный уголоk";
+        this.esquina_azul_text = "Cиний уголоk";
 
         this.acciones_text = "Действия";
         this.buscar_text = "Искать";

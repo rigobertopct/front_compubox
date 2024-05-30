@@ -275,10 +275,10 @@ export default {
       this.configuracion_text = "Ключевые настройки";
       this.efectivo_text = "Наличные";
       this.no_efectivo_text = "Нет наличных";
-      this.golpe_text = "Удар";
+      this.golpe_text = "Удары";
       this.efectividad_text = "Эффективность";
-      this.tecla_text = "Kлавиша";
-      this.nueva_config_text = "Новые ключевые настройки";
+      this.tecla_text = "Клавиши";
+      this.nueva_config_text = "Новые настройки клавиш";
       this.actualizar_config_text = "Обновить ключевые настройки";
     }
     if (this.idioma === "in") {
@@ -334,9 +334,9 @@ export default {
         this.no_efectivo_text = "No efectivo";
         this.golpe_text = "Golpe";
         this.efectividad_text = "Efectividad";
-        this.tecla_text = "Tecla";
-        this.nueva_config_text = "Nueva configuración de tecla";
-        this.actualizar_config_text = "Actualizar configuración de tecla";
+        this.tecla_text = "Teclas";
+        this.nueva_config_text = "Nueva configuración de teclas";
+        this.actualizar_config_text = "Actualizar configuración de teclas";
       }
       if (this.idioma === "ru") {
         this.acciones_text = "Действия";
@@ -350,10 +350,10 @@ export default {
         this.configuracion_text = "Ключевые настройки";
         this.efectivo_text = "Наличные";
         this.no_efectivo_text = "Нет наличных";
-        this.golpe_text = "Удар";
+        this.golpe_text = "Удары";
         this.efectividad_text = "Эффективность";
-        this.tecla_text = "Kлавиша";
-        this.nueva_config_text = "Новые ключевые настройки";
+        this.tecla_text = "Клавиши";
+        this.nueva_config_text = "Новые настройки клавиш";
         this.actualizar_config_text = "Обновить ключевые настройки";
       }
       if (this.idioma === "in") {
